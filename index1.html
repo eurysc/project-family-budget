@@ -100,64 +100,73 @@
     </section>
 
     <section class="grid">
-      <article class="panel command-center">
-        <div class="panel-header">
-          <h3>Centro de Mando</h3>
-          <span>Hoy</span>
-        </div>
+     <article class="panel command-center">
+  <div class="panel-header">
+    <h3>Centro de Mando</h3>
+    <span>Hoy</span>
+  </div>
 
-        <div class="command-summary">
-          <div><span>Disponible hoy</span><strong>$185.000</strong></div>
-          <div><span>Próximo pago</span><strong>Nu Mastercard</strong></div>
-          <div><span>Autonomía</span><strong>17 días</strong></div>
-        </div>
+  <div class="command-summary">
+    <div>
+      <span>Disponible hoy</span>
+      <strong>$185.000</strong>
+    </div>
+    <div>
+      <span>Próximo pago</span>
+      <strong>Nu Mastercard</strong>
+    </div>
+    <div>
+      <span>Autonomía</span>
+      <strong>17 días</strong>
+    </div>
+  </div>
 
-        <div class="task-list">
-          <label class="task-item">
-            <input type="checkbox" class="task-checkbox" data-task="arriendo">
-            <span>Separar arriendo</span>
-            <strong>$1.000.000</strong>
-          </label>
+  <div class="task-list">
+    <label class="task-item">
+      <input type="checkbox" class="task-checkbox" data-task="arriendo">
+      <span>Separar arriendo</span>
+      <strong>$1.000.000</strong>
+    </label>
 
-          <label class="task-item">
-            <input type="checkbox" class="task-checkbox" data-task="etb">
-            <span>Pagar Internet ETB</span>
-            <strong>$120.000</strong>
-          </label>
+    <label class="task-item">
+      <input type="checkbox" class="task-checkbox" data-task="etb">
+      <span>Pagar Internet ETB</span>
+      <strong>$120.000</strong>
+    </label>
 
-          <label class="task-item">
-            <input type="checkbox" class="task-checkbox" data-task="nu">
-            <span>Revisar Nu Mastercard</span>
-            <strong>—</strong>
-          </label>
+    <label class="task-item">
+      <input type="checkbox" class="task-checkbox" data-task="nu">
+      <span>Revisar Nu Mastercard</span>
+      <strong>—</strong>
+    </label>
 
-          <label class="task-item">
-            <input type="checkbox" class="task-checkbox" data-task="i5">
-            <span>Aporte Fondo I5</span>
-            <strong>$1.500.000</strong>
-          </label>
-        </div>
+    <label class="task-item">
+      <input type="checkbox" class="task-checkbox" data-task="i5">
+      <span>Aporte Fondo I5</span>
+      <strong>$1.500.000</strong>
+    </label>
+  </div>
 
-        <div class="task-progress">
-          <div class="progress-header">
-            <span>Progreso del día</span>
-            <strong id="taskProgressLabel">0%</strong>
-          </div>
+  <div class="task-progress">
+    <div class="progress-header">
+      <span>Progreso del día</span>
+      <strong id="taskProgressLabel">0%</strong>
+    </div>
 
-          <div class="progress">
-            <div id="taskProgressBar" style="width:0%"></div>
-          </div>
+    <div class="progress">
+      <div id="taskProgressBar" style="width:0%"></div>
+    </div>
 
-          <small id="taskProgressCount">0 de 4 tareas completadas</small>
-        </div>
-      </article>
+    <small id="taskProgressCount">0 de 4 tareas completadas</small>
+  </div>
+</article>
 
       <div class="right-column">
 
       <article class="panel">
         <div class="panel-header">
           <h3>Distribución del presupuesto</h3>
-          
+          <span>Porcentajes</span>
         </div>
         <canvas id="budgetChart" class="chart-compact"></canvas>
       </article>
