@@ -344,3 +344,21 @@ body{
     flex-wrap:wrap;
   }
 }
+
+.quick-capture{
+  display:grid;
+  grid-template-columns:140px 120px 180px 160px 150px 180px auto;
+  gap:8px;
+  align-items:center;
+}
+
+.quick-capture input,
+.quick-capture select{
+  width:100%;
+}
+
+@media(max-width:1200px){
+  .quick-capture{
+    grid-template-columns:1fr 1fr;
+  }
+}
