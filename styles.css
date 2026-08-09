@@ -475,3 +475,156 @@ body{
     grid-column:2;
   }
 }
+
+
+/* =========================================================
+   v0.6.4 EXECUTIVE LAYOUT OVERRIDES
+   ========================================================= */
+
+.topbar{
+  gap:20px;
+}
+
+.menu{
+  flex:1;
+  justify-content:center;
+}
+
+.quick-capture.compact{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.quick-capture.compact input[type="number"]{
+  width:120px;
+}
+
+.quick-capture.compact button{
+  white-space:nowrap;
+}
+
+.quick-details{
+  position:relative;
+}
+
+.quick-details summary{
+  list-style:none;
+  cursor:pointer;
+  padding:10px 14px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#0b1220;
+  color:#cbd5e1;
+}
+
+.quick-details summary::-webkit-details-marker{
+  display:none;
+}
+
+.quick-details[open]{
+  position:absolute;
+  top:44px;
+  right:0;
+  width:320px;
+  background:#0f172a;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+  z-index:200;
+}
+
+.quick-details[open] summary{
+  margin-bottom:12px;
+}
+
+.quick-details[open] select,
+.quick-details[open] input{
+  width:100%;
+  margin-bottom:10px;
+}
+
+.kpis{
+  gap:14px;
+}
+
+.card{
+  padding:18px;
+}
+
+.card strong{
+  font-size:28px;
+}
+
+.grid{
+  grid-template-columns:2fr 1fr;
+  align-items:start;
+}
+
+.right-column{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:20px;
+}
+
+.right-column .panel{
+  min-height:360px;
+}
+
+.chart-compact{
+  width:100% !important;
+  height:300px !important;
+  max-height:300px;
+}
+
+.panel.command-center{
+  min-height:740px;
+}
+
+.command-summary{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.command-summary div{
+  padding:16px;
+}
+
+.task-item{
+  padding:16px;
+}
+
+.task-item span{
+  font-size:16px;
+}
+
+.bottom-grid{
+  grid-template-columns:1.4fr 1fr;
+}
+
+.tdc-summary{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.timeline{
+  grid-template-columns:repeat(4,1fr);
+}
+
+@media(max-width:1200px){
+  .grid,
+  .bottom-grid{
+    grid-template-columns:1fr;
+  }
+
+  .right-column{
+    grid-template-rows:auto auto;
+  }
+
+  .panel.command-center{
+    min-height:auto;
+  }
+
+  .quick-capture.compact{
+    width:100%;
+    justify-content:flex-start;
+  }
+}
