@@ -1,0 +1,8 @@
+{
+  "name":"project-family-budget",
+  "version":"0.6.0-base",
+  "module":"finanzas",
+  "host":"HorizonOS",
+  "entry":"index.html",
+  "status":"prototype"
+}
