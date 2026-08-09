@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HorizonOS • Project Family Budget</title>
+  <title>HorizonOS · Project Family Budget v0.6.0-beta1</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,19 +12,33 @@
       <h1>HorizonOS</h1>
       <span>Project Family Budget</span>
     </div>
+
     <nav class="menu">
       <a class="active">Dashboard</a>
       <a>Cajitas</a>
       <a>TDC</a>
       <a>Presupuesto</a>
       <a>Patrimonio</a>
+      <a>Configuración</a>
     </nav>
+
+    <div class="quick-capture">
+      <input type="number" placeholder="Monto">
+      <select>
+        <option>Gasto</option>
+        <option>Ingreso</option>
+      </select>
+      <button>Registrar</button>
+    </div>
   </header>
 
   <main class="container">
     <section class="hero">
-      <h2>Centro de Mando Financiero</h2>
-      <p>Base de prueba para HorizonOS</p>
+      <div>
+        <h2>Centro de Mando Financiero</h2>
+        <p>Versión estable inicial orientada a HorizonOS</p>
+      </div>
+      <div class="hero-pill">GitHub Pages Ready</div>
     </section>
 
     <section class="kpis">
@@ -34,31 +48,152 @@
       <div class="card"><span>Patrimonio</span><strong>$12.300.000</strong></div>
     </section>
 
-    <section class="panel-grid">
+    <section class="indicators">
+      <div><span>Presupuesto</span><strong>63%</strong></div>
+      <div><span>Ahorro</span><strong>26%</strong></div>
+      <div><span>Utilización TDC</span><strong>13%</strong></div>
+      <div><span>Gasto hoy</span><strong>$18.500</strong></div>
+      <div><span>Autonomía</span><strong>17 días</strong></div>
+      <div><span>Riesgo</span><strong class="ok">VERDE</strong></div>
+    </section>
+
+    <section class="grid">
       <article class="panel">
-        <h3>Centro de Mando</h3>
-        <ul>
+        <div class="panel-header">
+          <h3>Centro de Mando</h3>
+          <span>$2.020.000</span>
+        </div>
+        <ul class="tasks">
           <li>Separar arriendo</li>
           <li>Pagar Internet ETB</li>
-          <li>Revisar TDC</li>
+          <li>Revisar Nu Mastercard</li>
+          <li>Actualizar Cajitas Nu</li>
         </ul>
       </article>
+
       <article class="panel">
-        <h3>Distribución del presupuesto</h3>
-        <div class="chart">Pie chart (placeholder)</div>
+        <div class="panel-header">
+          <h3>Distribución del presupuesto</h3>
+          <span>Con leyendas y porcentajes</span>
+        </div>
+        <div class="chart">Pie chart + leyenda inferior</div>
       </article>
+
       <article class="panel">
-        <h3>Proyección patrimonial</h3>
-        <div class="chart">Línea + Barras (placeholder)</div>
+        <div class="panel-header">
+          <h3>Proyección patrimonial</h3>
+          <span>Estimado vs Real</span>
+        </div>
+        <div class="chart">Línea (estimado) + Barras (real)</div>
       </article>
+
       <article class="panel">
-        <h3>Cajitas Nu</h3>
+        <div class="panel-header">
+          <h3>Cajitas Nu</h3>
+          <button class="btn-small">+ Nueva</button>
+        </div>
+
         <div class="goal">
-          <strong>Fondo I5</strong>
+          <div class="goal-title">
+            <strong>Fondo I5</strong>
+            <span>$12.300.000</span>
+          </div>
           <div class="progress"><div style="width:31%"></div></div>
-          <small>Meta $39.500.000 • +8.2% EA • Faltan 18 meses</small>
+          <small>Meta: $39.500.000 · +8.2% EA · Faltan 18 meses</small>
+        </div>
+
+        <div class="goal">
+          <div class="goal-title">
+            <strong>Seguridad</strong>
+            <span>$1.850.000</span>
+          </div>
+          <div class="progress"><div style="width:46%"></div></div>
+          <small>Meta: $4.000.000 · +8.2% EA · Faltan 7 meses</small>
         </div>
       </article>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="panel">
+        <div class="panel-header">
+          <h3>Seguimiento TDC</h3>
+          <span>Timeline y utilización</span>
+        </div>
+
+        <div class="tdc-summary">
+          <div><span>Cupo</span><strong>$4.000.000</strong></div>
+          <div><span>Disponible</span><strong>$3.480.000</strong></div>
+          <div><span>Utilización</span><strong>13%</strong></div>
+          <div><span>Pago total</span><strong>$520.000</strong></div>
+        </div>
+
+        <div class="timeline">
+          <div>Corte 16</div>
+          <div>Revisión 17</div>
+          <div>Mínimo 20</div>
+          <div>Pago 25</div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-header">
+          <h3>Últimos movimientos</h3>
+          <span>10 registros recientes</span>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Comercio</th>
+              <th>Método</th>
+              <th>Categoría</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>08 Ago</td>
+              <td>Uber</td>
+              <td>BBVA</td>
+              <td>Transporte</td>
+              <td>$18.500</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="panel full">
+      <div class="panel-header">
+        <h3>Presupuesto</h3>
+        <span>Vista ejecutiva</span>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Presupuesto</th>
+            <th>Gastado</th>
+            <th>Disponible</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alimentación</td>
+            <td>$1.200.000</td>
+            <td>$680.000</td>
+            <td>$520.000</td>
+            <td>57%</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="config-banner">
+      <button class="btn-wide">⚙ Configuración</button>
     </section>
   </main>
 
