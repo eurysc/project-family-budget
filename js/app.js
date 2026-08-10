@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('HorizonOS Financial v0.6.3');
 
   const STORAGE_KEY = 'horizon_movements';
+  const WALLETS_KEY = 'horizon_wallets';
+  const CARDS_KEY = 'horizon_cards';
 
   // ===== Elementos del registro rápido =====
   const amountInput = document.querySelector('.quick-capture input[type="number"]');
@@ -27,6 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveMovements(movements) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(movements));
   }
+
+
+  function getWallets() {
+    return JSON.parse(localStorage.getItem(WALLETS_KEY) || '{"BBVA":3500000,"Nu":1200000,"Efectivo":180000,"Nequi":450000}');
+  }
+  function saveWallets(w) { localStorage.setItem(WALLETS_KEY, JSON.stringify(w)); }
+
+  function getCards() {
+    return JSON.parse(localStorage.getItem(CARDS_KEY) || '{"Nu Mastercard":{"limit":1000000,"used":0,"paymentDay":"25 Ago"},"BBVA Visa":{"limit":2000000,"used":0,"paymentDay":"18 Ago"}}');
+  }
+  function saveCards(c) { localStorage.setItem(CARDS_KEY, JSON.stringify(c)); }
 
   function formatCOP(value) {
     return '$' + Number(value).toLocaleString('es-CO');
@@ -56,11 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
     movements.unshift(movement);
     saveMovements(movements);
 
+    const cards = getCards();
+    if (cards[movement.account] && movement.type === 'Gasto') {
+      cards[movement.account].used += movement.amount;
+      saveCards(cards);
+    } else {
+      const wallets = getWallets();
+      if (wallets[movement.account] != null) {
+        wallets[movement.account] += movement.type === 'Ingreso' ? movement.amount : -movement.amount;
+        saveWallets(wallets);
+      }
+    }
+
+    updateWalletSummary();
+
     amountInput.value = '';
     if (notesInput) notesInput.value = '';
 
     updateLastMovements();
     updateTodaySpend();
+  updateWalletSummary();
   }
 
   // ===== Últimos movimientos =====
@@ -124,6 +152,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function updateWalletSummary() {
+    const indicators = document.querySelectorAll('.indicators div');
+    const wallets = getWallets();
+    const cards = getCards();
+    const liquidity = Object.values(wallets).reduce((a,b)=>a+b,0);
+    const cardUsed = Object.values(cards).reduce((a,c)=>a+c.used,0);
+    indicators.forEach(card=>{
+      const title=card.querySelector('span');
+      const value=card.querySelector('strong');
+      if(!title||!value) return;
+      if(title.textContent.trim()==='Liquidez') value.textContent=formatCOP(liquidity);
+      if(title.textContent.trim()==='TDC') value.textContent=formatCOP(cardUsed);
+    });
+  }
+
   // ===== Eventos =====
   registerButton.addEventListener('click', addMovement);
 
@@ -136,4 +179,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== Inicialización =====
   updateLastMovements();
   updateTodaySpend();
+  updateWalletSummary();
 });
