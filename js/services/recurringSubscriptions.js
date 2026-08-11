@@ -1,0 +1,1 @@
+window.RecurringSubscriptions={all(){return JSON.parse(localStorage.getItem('budget_subscriptions')||'[]');}};

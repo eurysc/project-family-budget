@@ -1,0 +1,1 @@
+window.BudgetCommandCenter={tasks(){const tx=BudgetLedger.all();return tx.length?['Revisar gasto reciente']:['Registrar primer movimiento'];}};

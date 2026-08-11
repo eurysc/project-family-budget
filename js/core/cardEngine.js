@@ -1,0 +1,1 @@
+window.CardEngine={totalUsage(){return HorizonLedger.all().filter(t=>['Nu Mastercard','BBVA Visa'].includes(t.source)).reduce((s,t)=>s+Number(t.amount||0),0);}};

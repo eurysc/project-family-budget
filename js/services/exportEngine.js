@@ -1,0 +1,1 @@
+window.ExportEngine={json(){return JSON.stringify(TransactionRepository.all());}};

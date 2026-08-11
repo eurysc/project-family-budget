@@ -1,0 +1,1 @@
+window.KPIEngine={calculate(list){list=list||TransactionRepository.all();return {income:list.filter(t=>t.type==="income").reduce((s,t)=>s+(+t.amount||0),0),expense:list.filter(t=>t.type==="expense").reduce((s,t)=>s+(+t.amount||0),0),count:list.length};}};

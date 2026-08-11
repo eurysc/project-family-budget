@@ -1,0 +1,1 @@
+window.RegisterController={register(tx){const list=TransactionRepository.all();list.unshift(tx);TransactionRepository.save(list);return tx;}};

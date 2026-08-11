@@ -628,3 +628,14 @@ body{
     justify-content:flex-start;
   }
 }
+/* H55X Sprint Visual 02 */
+body{transition:background .25s ease,color .25s ease;}
+.card,.panel,.widget{box-shadow:0 10px 30px rgba(0,0,0,.25);}
+
+/* H55X Sprint Impacto 01 */
+.h55x-executive-panel button{cursor:pointer;transition:transform .15s ease,opacity .15s ease}
+.h55x-executive-panel button:hover{transform:translateY(-1px);opacity:.95}
+
+/* H55X Sprint Integración 01 */
+#h55x-exec-panel button:hover{transform:translateY(-1px);opacity:.95}
+.card,.panel,.widget,.metric{box-shadow:0 12px 28px rgba(0,0,0,.28);border-radius:16px}

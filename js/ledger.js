@@ -1,0 +1,1 @@
+window.BudgetLedger={all(){return JSON.parse(localStorage.getItem('budget_ledger')||'[]');},add(tx){const a=this.all();a.push(tx);localStorage.setItem('budget_ledger',JSON.stringify(a));}};

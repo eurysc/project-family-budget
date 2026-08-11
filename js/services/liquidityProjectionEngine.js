@@ -1,0 +1,1 @@
+window.LiquidityProjectionEngine={project(){return {days7:0,days15:0,days30:0};}};

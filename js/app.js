@@ -137,3 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLastMovements();
   updateTodaySpend();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('h55xQuickAction');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      alert('H55X: acceso rápido al registro de movimientos.');
+    });
+  }
+});

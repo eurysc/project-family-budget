@@ -1,0 +1,4 @@
+- Panel ejecutivo integrado en la interfaz principal
+- KPIs visibles
+- Botón de acción rápida conectado a JS
+- Ajustes visuales para tarjetas y paneles

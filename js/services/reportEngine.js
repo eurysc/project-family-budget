@@ -1,0 +1,1 @@
+window.ReportEngine={monthly(){return {};}};

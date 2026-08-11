@@ -1,0 +1,1 @@
+window.RegisterFormBinder={bind(){return true;}};
