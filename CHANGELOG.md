@@ -157,3 +157,12 @@
 - Acciones prioritarias y semáforo financiero
 - Calendario de obligaciones y alta manual
 - Actividad filtrable y exportable
+
+
+## S13 • Forecast & Operations
+- Forecast Lab interactivo
+- Escenarios base, acelerado y presión
+- Operaciones accionables
+- Integración con calendario de pagos
+- Persistencia de escenarios
+- Nuevas vistas responsive

@@ -207,3 +207,49 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click',e=>{const b=e.target.closest('.nav-item');if(b&&['cashflow','insights'].includes(b.dataset.view))setTimeout(render,0)});
   $('s10RefreshInsights')?.addEventListener('click',render);window.addEventListener('h55x:movement',render);window.BudgetInsightsS10={render,metrics};document.addEventListener('DOMContentLoaded',render);
 })();
+
+/* H55X_S13_RUNTIME */
+
+(function(){
+  const $=id=>document.getElementById(id);
+  const fmt=v=>'COP '+Number(v||0).toLocaleString('es-CO');
+  function scenario(balance,saving,expense,months,mult,label,cls){
+    const net=(saving-expense)*mult;
+    return {label,cls,net,future:balance+net*months};
+  }
+  function runForecast(){
+    const b=Number($('s13Balance')?.value||0), s=Number($('s13Saving')?.value||0), e=Number($('s13Expense')?.value||0), m=Number($('s13Months')?.value||12);
+    const rows=[
+      scenario(b,s,e,m,1,'Base','base'),
+      scenario(b,s*1.2,e*.95,m,1,'Acelerado','good'),
+      scenario(b,s*.75,e*1.08,m,1,'Presión','risk')
+    ];
+    $('s13ScenarioCards').innerHTML=rows.map(r=>`<article class="s13-scenario ${r.cls}"><span>${r.label}</span><strong>${fmt(r.future)}</strong><small>Flujo mensual ${fmt(r.net)}</small></article>`).join('');
+    const best=rows.slice().sort((a,b)=>b.future-a.future)[0], worst=rows.slice().sort((a,b)=>a.future-b.future)[0];
+    $('s13ForecastNarrative').innerHTML=`<div class="s13-callout"><strong>${best.label}</strong><p>Con este ritmo llegarías a <b>${fmt(best.future)}</b> en ${m} meses.</p></div><div class="s13-callout warning"><strong>Riesgo</strong><p>El escenario de presión reduce el cierre a <b>${fmt(worst.future)}</b>. La diferencia frente al mejor escenario es <b>${fmt(best.future-worst.future)}</b>.</p></div>`;
+    $('s13ForecastState').textContent=best.future>=b?'Positivo':'Revisar';
+    $('s13ForecastFeedback').textContent='Simulación calculada localmente; no modifica saldos.';
+    localStorage.setItem('budget_s13_forecast',JSON.stringify({b,s,e,m,rows}));
+  }
+  function renderOps(){
+    const q=window.BudgetCommandCenter?.getActionQueue?.()||[];
+    const done=JSON.parse(localStorage.getItem('budget_s13_ops_done')||'[]');
+    const bills=window.PaymentCalendar?.upcoming?.()||[];
+    $('s13OpsCount').textContent=String(q.length);
+    $('s13OpsList').innerHTML=(q.length?q:[{id:'register',label:'Registrar un movimiento',priority:'Alta'}]).map(x=>`<div class="s13-op-row"><span><strong>${x.label}</strong><small>${x.priority||'Media'}</small></span><button class="btn btn-ghost" data-s13-op="${x.id}">${done.includes(x.id)?'Hecho':'Completar'}</button></div>`).join('');
+    $('s13OpsBills').innerHTML=(bills.length?bills:[{id:'nu',name:'Nu Mastercard',date:'3 días',status:'pending'},{id:'etb',name:'Internet ETB',date:'7 días',status:'pending'}]).map(x=>`<div class="s13-op-row"><span><strong>${x.name||x.title}</strong><small>${x.date||'Próximo'} • ${x.status||'pending'}</small></span><span class="pill">${x.status==='paid'?'Pagado':'Pendiente'}</span></div>`).join('');
+    document.querySelectorAll('[data-s13-op]').forEach(btn=>btn.onclick=()=>{const list=JSON.parse(localStorage.getItem('budget_s13_ops_done')||'[]');if(!list.includes(btn.dataset.s13Op))list.push(btn.dataset.s13Op);localStorage.setItem('budget_s13_ops_done',JSON.stringify(list));renderOps();});
+  }
+  function boot(){
+    const nav=document.querySelector('.menu');
+    if(nav&&!document.querySelector('[data-view="forecast"]')) nav.insertAdjacentHTML('beforeend','<button class="nav-item" data-view="forecast">Forecast Lab</button><button class="nav-item" data-view="operations">Operaciones</button>');
+    const main=document.querySelector('.app-shell');
+    if(main&&!document.getElementById('view-forecast')) main.insertAdjacentHTML('beforeend','\n<section id="view-forecast" class="view">\n  <div class="section-title">\n    <div><span class="eyebrow">Planificación</span><h2>Forecast Lab</h2><p>Prueba decisiones de ahorro, gasto y liquidez antes de ejecutarlas.</p></div>\n    <span class="pill">S13 • Simulación</span>\n  </div>\n  <div class="s13-forecast-grid">\n    <article class="panel">\n      <div class="panel-head"><div><span class="eyebrow">Variables</span><h3>Motor de proyección</h3></div></div>\n      <div class="s13-form-grid">\n        <label>Liquidez actual<input id="s13Balance" type="number" value="3450000"></label>\n        <label>Ahorro mensual<input id="s13Saving" type="number" value="820000"></label>\n        <label>Gasto mensual<input id="s13Expense" type="number" value="2020000"></label>\n        <label>Meses<input id="s13Months" type="number" value="12"></label>\n      </div>\n      <div class="s13-actions"><button id="s13RunForecast" class="btn btn-primary">Simular escenario</button><button id="s13ResetForecast" class="btn btn-ghost">Restablecer</button></div>\n      <p id="s13ForecastFeedback" class="feedback"></p>\n    </article>\n    <article class="panel">\n      <div class="panel-head"><div><span class="eyebrow">Salida</span><h3>Escenarios</h3></div><span id="s13ForecastState" class="pill">Listo</span></div>\n      <div id="s13ScenarioCards" class="s13-scenarios"></div>\n    </article>\n  </div>\n  <article class="panel">\n    <div class="panel-head"><div><span class="eyebrow">Lectura ejecutiva</span><h3>Impacto de una decisión</h3></div></div>\n    <div id="s13ForecastNarrative" class="s13-narrative"></div>\n  </article>\n</section>\n\n<section id="view-operations" class="view">\n  <div class="section-title">\n    <div><span class="eyebrow">Ejecución</span><h2>Operaciones</h2><p>Convierte señales financieras en acciones concretas.</p></div>\n    <button id="s13RefreshOps" class="btn btn-ghost">Actualizar</button>\n  </div>\n  <div class="s13-op-grid">\n    <article class="panel"><div class="panel-head"><div><span class="eyebrow">Prioridad</span><h3>Próximas acciones</h3></div><span id="s13OpsCount" class="pill">0</span></div><div id="s13OpsList" class="s13-ops-list"></div></article>\n    <article class="panel"><div class="panel-head"><div><span class="eyebrow">Calendario</span><h3>Obligaciones</h3></div></div><div id="s13OpsBills" class="s13-ops-list"></div></article>\n  </div>\n</section>\n');
+    $('s13RunForecast')?.addEventListener('click',runForecast);
+    $('s13ResetForecast')?.addEventListener('click',()=>{$('s13Balance').value=3450000;$('s13Saving').value=820000;$('s13Expense').value=2020000;$('s13Months').value=12;runForecast();});
+    $('s13RefreshOps')?.addEventListener('click',renderOps);
+    renderOps();runForecast();
+  }
+  window.BudgetS13={runForecast,renderOps};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
