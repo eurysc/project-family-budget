@@ -1,0 +1,1 @@
+window.TransactionRepository={all(){return JSON.parse(localStorage.getItem("budget_tx")||"[]");},save(list){localStorage.setItem("budget_tx",JSON.stringify(list));}};

@@ -1,0 +1,1 @@
+window.SavingsBoxes={all(){return JSON.parse(localStorage.getItem('budget_boxes')||'[]');}};

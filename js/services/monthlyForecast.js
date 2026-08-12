@@ -1,0 +1,1 @@
+window.MonthlyForecast={project(){return {income:0,expense:0,savings:0};}};

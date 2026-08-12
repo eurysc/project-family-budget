@@ -1,46 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("HorizonOS Financial v0.6.2");
 
-  const checkboxes = document.querySelectorAll(".task-checkbox");
-  const progressBar = document.getElementById("taskProgressBar");
-  const progressLabel = document.getElementById("taskProgressLabel");
-  const progressCount = document.getElementById("taskProgressCount");
+  const checkboxes = [...document.querySelectorAll(".task-checkbox")];
 
-  // Si todavía no existe el nuevo Centro de Mando, no hacer nada
-  if (!checkboxes.length) return;
+  const bar = document.getElementById("taskProgressBar");
 
-  function updateProgress() {
-    const total = checkboxes.length;
-    const completed = [...checkboxes].filter(cb => cb.checked).length;
-    const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const label = document.getElementById("taskProgressLabel");
 
-    if (progressBar) progressBar.style.width = percent + "%";
-    if (progressLabel) progressLabel.textContent = percent + "%";
-    if (progressCount) {
-      progressCount.textContent = `${completed} de ${total} tareas completadas`;
-    }
+  const count = document.getElementById("taskProgressCount");
 
-    // Guardar estado
-    localStorage.setItem(
-      "horizon_tasks",
-      JSON.stringify(
-        [...checkboxes].map(cb => ({
-          id: cb.dataset.task,
-          checked: cb.checked
-        }))
-      )
-    );
+  if(!checkboxes.length || !bar || !label || !count) return;
+
+
+
+  function update(){
+
+    const done=checkboxes.filter(c=>c.checked).length;
+
+    const total=checkboxes.length;
+
+    const pct=total?Math.round(done/total*100):0;
+
+    bar.style.width=pct+"%";
+
+    label.textContent=pct+"%";
+
+    count.textContent=`${done} de ${total} tareas completadas`;
+
+    localStorage.setItem("h55x_budget_tasks_s06",JSON.stringify(checkboxes.map(c=>({id:c.dataset.task,checked:c.checked}))));
+
   }
 
-  // Restaurar estado guardado
-  const saved = JSON.parse(localStorage.getItem("horizon_tasks") || "[]");
+  checkboxes.forEach(c=>c.addEventListener("change",update));
 
-  checkboxes.forEach(cb => {
-    const savedItem = saved.find(item => item.id === cb.dataset.task);
-    if (savedItem) cb.checked = savedItem.checked;
+  update();
 
-    cb.addEventListener("change", updateProgress);
-  });
-
-  updateProgress();
 });
+/* S07 task persistence + command signal */
+window.H55XDashboard={
+  completion(){
+    const all=[...document.querySelectorAll('.task-checkbox')];
+    return all.length?Math.round(all.filter(x=>x.checked).length/all.length*100):0;
+  },
+  focusTask(id){
+    const el=document.querySelector(`.task-checkbox[data-task="${id}"]`);
+    if(el){el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));}
+  }
+};
+
+/* ===== S08 dashboard telemetry ===== */
+(function(){
+  const ready=()=>{
+    const el=document.getElementById('taskProgressLabel');
+    if(!el)return;
+    const tasks=[...document.querySelectorAll('.task-checkbox')];
+    const done=tasks.filter(t=>t.checked).length;
+    const pct=tasks.length?Math.round(done/tasks.length*100):0;
+    el.textContent=`${pct}%`;
+  };
+  document.addEventListener('change',e=>{if(e.target.matches('.task-checkbox'))ready();});
+  setTimeout(ready,80);
+})();

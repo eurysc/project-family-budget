@@ -1,0 +1,1 @@
+window.TransactionEditor={edit(id,data){return {id,data};},remove(id){return id;}};

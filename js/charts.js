@@ -1,152 +1,33 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // ============================
-  // PIE CHART - PRESUPUESTO
-  // ============================
-  const budgetCtx = document.getElementById("budgetChart");
-
-  if (budgetCtx) {
-    new Chart(budgetCtx, {
-      type: "pie",
-      data: {
-        labels: [
-          "Ahorro",
-          "Alimentación",
-          "Vivienda",
-          "Educación",
-          "Transporte",
-          "Otros"
-        ],
-        datasets: [
-          {
-            data: [26, 17, 15, 13, 5, 24],
-            backgroundColor: [
-              "#22c55e",
-              "#3b82f6",
-              "#f59e0b",
-              "#8b5cf6",
-              "#06b6d4",
-              "#64748b"
-            ],
-            borderColor: "#0b1220",
-            borderWidth: 2
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: {
-          padding: 10
-        },
-        plugins: {
-          // Eliminamos completamente la leyenda superior
-          legend: {
-            display: false
-          },
-
-          // Tooltip
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                const label = context.label || "";
-                const value = context.parsed || 0;
-                return `${label}: ${value}%`;
-              }
-            }
-          },
-
-          // Etiquetas sobre cada porción
-          datalabels: {
-            color: "#ffffff",
-            formatter: function (value, context) {
-              const label = context.chart.data.labels[context.dataIndex];
-              return `${label}\n${value}%`;
-            },
-            font: {
-              weight: "bold",
-              size: 12
-            },
-            textAlign: "center",
-            anchor: "center",
-            align: "center",
-            clamp: true
-          }
-        }
-      },
-      plugins: [ChartDataLabels]
-    });
-  }
-
-  // ============================
-  // PROYECCIÓN PATRIMONIAL
-  // ============================
-  const projectionCtx = document.getElementById("projectionChart");
-
-  if (projectionCtx) {
-    new Chart(projectionCtx, {
-      type: "line",
-      data: {
-        labels: ["Hoy", "6m", "12m", "18m", "24m"],
-        datasets: [
-          {
-            label: "Estimado",
-            data: [12.3, 20.1, 29.8, 40.7, 52.8],
-            borderColor: "#3b82f6",
-            backgroundColor: "rgba(59,130,246,0.15)",
-            borderWidth: 3,
-            tension: 0.35,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false
-          },
-          {
-            label: "Cumplimiento",
-            data: [12.3, 18.5, 26.2, 34.8, 44.1],
-            borderColor: "#22c55e",
-            backgroundColor: "rgba(34,197,94,0.15)",
-            borderWidth: 3,
-            tension: 0.35,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            fill: false
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: "top",
-            labels: {
-              color: "#e5e7eb",
-              usePointStyle: true,
-              pointStyle: "line"
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: "#94a3b8"
-            },
-            grid: {
-              color: "#243244"
-            }
-          },
-          y: {
-            ticks: {
-              color: "#94a3b8",
-              callback: function (value) {
-                return "$" + value + "M";
-              }
-            },
-            grid: {
-              color: "#243244"
-            }
-          }
-        }
-      }
-    });
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  if(typeof Chart === "undefined") return;
+
+  const budgetCtx=document.getElementById("budgetChart");
+  const projectionCtx=document.getElementById("projectionChart");
+
+  if(budgetCtx){
+    new Chart(budgetCtx,{
+      type:"doughnut",
+      data:{labels:["Ahorro","Alimentación","Vivienda","Educación","Transporte","Otros"],datasets:[{data:[26,17,15,13,5,24],backgroundColor:["#22c55e","#3b82f6","#f59e0b","#8b5cf6","#06b6d4","#64748b"],borderColor:"#0f1b2e",borderWidth:3}]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:"62%",plugins:{legend:{position:"bottom",labels:{color:"#b5c7dd",boxWidth:10,font:{size:10}}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.parsed}%`}}}}
+    });
+  }
+
+  if(projectionCtx){
+    new Chart(projectionCtx,{
+      type:"line",
+      data:{labels:["Hoy","6m","12m","18m","24m"],datasets:[
+        {label:"Base",data:[18.2,22.1,28.3,36.8,45.7],borderColor:"#60a5fa",backgroundColor:"rgba(96,165,250,.08)",fill:true,tension:.34,pointRadius:3},
+        {label:"Acelerado",data:[18.2,24.5,32.7,42.5,55.1],borderColor:"#22c55e",backgroundColor:"rgba(34,197,94,.06)",fill:true,tension:.34,pointRadius:3},
+        {label:"Protegido",data:[18.2,23.1,30.1,38.7,49.2],borderColor:"#f59e0b",backgroundColor:"rgba(245,158,11,.05)",fill:true,tension:.34,pointRadius:3}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"top",labels:{color:"#b5c7dd",usePointStyle:true,font:{size:10}}}},scales:{x:{ticks:{color:"#7f97b3"},grid:{color:"#1a2a42"}},y:{ticks:{color:"#7f97b3",callback:v=>`$${v}M`},grid:{color:"#1a2a42"}}}}
+    });
+  }
 });
+/* S07 chart registry */
+window.H55XCharts=window.H55XCharts||{};
+window.H55XCharts.recommendation=function(spend,savings){
+  if(spend>1000000)return 'Revisar gasto variable antes de aumentar ahorro.';
+  if(savings>0)return 'Mantén ahorro protegido y revisa la próxima fecha crítica.';
+  return 'Registra ahorro para activar la lectura de protección.';
+};

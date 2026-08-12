@@ -1,0 +1,1 @@
+window.WalletReconciliation={compare(expected,actual){return {expected,actual,difference:(actual-expected)};}};

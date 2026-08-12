@@ -1,0 +1,1 @@
+window.PaymentCalendarEngine={all(){return JSON.parse(localStorage.getItem("budget_calendar")||"[]");}};

@@ -1,0 +1,1 @@
+window.ExecutiveReport={generate(){return {generatedAt:new Date().toISOString()};}};

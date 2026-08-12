@@ -1,0 +1,1 @@
+window.HorizonBus=(function(){const l={};return{on:(e,c)=>(l[e]??=[]).push(c),emit:(e,p)=>(l[e]||[]).forEach(f=>f(p))};})();

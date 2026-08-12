@@ -1,0 +1,1 @@
+window.CategoryBudgetEngine={defaults:{Alimentacion:1200000,Transporte:600000,Entretenimiento:500000}};

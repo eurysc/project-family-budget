@@ -1,0 +1,1 @@
+window.TransactionFilters={byMonth(list){return list||[];},byCategory(list,c){return (list||[]).filter(x=>x.category===c);}};

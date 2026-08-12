@@ -1,0 +1,1 @@
+window.CardManagement={utilization(limit,balance){return limit?balance/limit:0;}};
