@@ -323,7 +323,33 @@
       <article class="panel"><div class="panel-head"><div><span class="eyebrow">Command</span><h3>Acciones sugeridas</h3></div><span id="s10ActionCount" class="pill">0</span></div><div id="s10ActionList" class="s10-actions"></div></article>
     </section>
 
-  </main>
+  <!-- H55X_S12_DECK -->
+
+<section id="s12-deck" class="s12-deck" aria-label="S12 Control Deck">
+  <div class="s12-deck-head">
+    <div><span class="eyebrow">S12 • Control Deck</span><h3>Operación en tiempo real</h3><p>Una capa de lectura rápida sobre liquidez, riesgo, ejecución y próximos pagos.</p></div>
+    <div class="s12-deck-actions">
+      <button id="s12Refresh" class="btn btn-ghost">Actualizar</button>
+      <button id="s12Export" class="btn btn-ghost">Exportar CSV</button>
+    </div>
+  </div>
+  <div class="s12-metrics">
+    <article><span>Flujo neto 30d</span><strong id="s12NetFlow">COP 0</strong><small id="s12NetFlowState">calculando</small></article>
+    <article><span>Ritmo de gasto</span><strong id="s12BurnRate">COP 0/día</strong><small>promedio 14 días</small></article>
+    <article><span>Reserva</span><strong id="s12ReserveDays">0 días</strong><small>protección estimada</small></article>
+    <article><span>Riesgo operativo</span><strong id="s12Risk">—</strong><small id="s12RiskReason">sin señales</small></article>
+  </div>
+  <div class="s12-grid">
+    <section class="panel s12-panel"><div class="panel-head"><div><span class="eyebrow">Execution</span><h3>Acciones prioritarias</h3></div><span id="s12ActionCount" class="pill">0</span></div><div id="s12Actions" class="s12-actions"></div></section>
+    <section class="panel s12-panel"><div class="panel-head"><div><span class="eyebrow">Signals</span><h3>Semáforo financiero</h3></div></div><div id="s12Signals" class="s12-signals"></div></section>
+  </div>
+  <div class="s12-grid">
+    <section class="panel s12-panel"><div class="panel-head"><div><span class="eyebrow">Calendar</span><h3>Próximas obligaciones</h3></div><button id="s12AddBill" class="btn btn-ghost">+ Obligación</button></div><div id="s12Bills2" class="s12-bills"></div></section>
+    <section class="panel s12-panel"><div class="panel-head"><div><span class="eyebrow">Activity</span><h3>Actividad reciente</h3></div><select id="s12Filter" class="s12-filter"><option value="all">Todos</option><option value="Gasto">Gastos</option><option value="Ingreso">Ingresos</option><option value="Ahorro">Ahorro</option></select></div><div id="s12Activity" class="s12-activity"></div></section>
+  </div>
+</section>
+
+</main>
 
 
 
@@ -388,6 +414,7 @@
 
   <script src="js/charts.js"></script>
 
+<script src="js/s12_budget_deck.js"></script>
 </body>
 
 </html>

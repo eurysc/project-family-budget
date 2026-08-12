@@ -150,3 +150,10 @@
 - Calendario de obligaciones
 - Métrica de colchón
 - Acciones de control
+
+
+## S12 • Control Deck
+- Liquidez, burn rate, reserva y riesgo en tiempo real
+- Acciones prioritarias y semáforo financiero
+- Calendario de obligaciones y alta manual
+- Actividad filtrable y exportable
