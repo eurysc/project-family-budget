@@ -51,7 +51,8 @@
 <!-- H55X_S10_NAV -->
       <button class="nav-item" data-view="cashflow">Flujo</button>
       <button class="nav-item" data-view="insights">Insights</button>
-      <button class="nav-item" data-view="settings">Configuración</button>
+      <button class="nav-item" data-view="control">Control</button>
+<button class="nav-item" data-view="settings">Configuración</button>
 
     </nav>
 
@@ -326,6 +327,21 @@
 
 
 
+
+<section id="view-control" class="view">
+  <div class="section-title"><div><span class="eyebrow">Control tower</span><h2>Control Financiero</h2><p>Lectura consolidada de liquidez, gasto y obligaciones.</p></div><span id="s11ControlHealth" class="pill">Calculando</span></div>
+  <div class="kpi-grid three">
+    <article class="metric-card accent-blue"><span>Flujo neto 30 días</span><strong id="s11Net30">COP 0</strong><small>ingresos - gastos</small></article>
+    <article class="metric-card accent-amber"><span>Ritmo de gasto</span><strong id="s11SpendRate">COP 0/día</strong><small>promedio últimos 7 días</small></article>
+    <article class="metric-card accent-green"><span>Colchón estimado</span><strong id="s11Runway">0 días</strong><small>liquidez / gasto diario</small></article>
+  </div>
+  <div class="secondary-grid">
+    <article class="panel"><div class="panel-head"><div><span class="eyebrow">Señales</span><h3>Salud financiera</h3></div><span id="s11HealthScore" class="pill">0/100</span></div><div id="s11HealthBars" class="s11-health-bars"></div></article>
+    <article class="panel"><div class="panel-head"><div><span class="eyebrow">Obligaciones</span><h3>Calendario prioritario</h3></div><button id="s11AddBill" class="btn btn-ghost">+ Obligación</button></div><div id="s11Bills" class="s11-bills"></div></article>
+  </div>
+  <article class="panel"><div class="panel-head"><div><span class="eyebrow">Control operativo</span><h3>Guardrails de gasto</h3></div><button id="s11SetLimit" class="btn btn-ghost">Definir límite</button></div><div id="s11Guardrails" class="s11-guardrails"></div></article>
+</section>
+
   <div id="registerModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 
     <div class="modal-card">
@@ -365,7 +381,8 @@
 <script src="js/services/kpiEngine.js"></script>
 <script src="js/services/paymentCalendar.js"></script>
 <script src="js/services/budgetInsightEngine.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/sprint_s11_budget.js"></script>
+<script src="js/app.js"></script>
 
   <script src="js/dashboard.js"></script>
 

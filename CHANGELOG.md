@@ -141,3 +141,12 @@
 - Acciones sugeridas
 - Navegación ampliada
 - Actualización en vivo tras movimientos
+
+
+## S11 • Financial Control Tower
+- Control Financiero
+- Salud financiera
+- Guardrails de gasto
+- Calendario de obligaciones
+- Métrica de colchón
+- Acciones de control
