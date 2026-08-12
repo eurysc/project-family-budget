@@ -101,3 +101,33 @@
 - Batch de 60 acciones: operación, persistencia, alertas, filtros y salud financiera.
 - Integración del servicio de transacciones, KPIs y calendario de pagos.
 - Feed operativo, señales de riesgo, atajos y estados de captura.
+
+
+## S08 • Financial Operations
+- 60 acciones de producto implementadas en Budget
+- Centro de salud financiera
+- Actividad filtrable y exportable
+- Eliminación de movimientos desde UI
+- Integración unificada con TransactionService
+- Migración de movimientos legacy
+- KPI de flujo neto, gasto diario, uso y riesgo
+- Rail de comandos y atajos de teclado
+- Alertas operativas
+- Comando de recalculo
+- Navegación ampliada a Actividad
+- Command Center con cola de acciones
+
+
+## S08 • Financial Operations
+- 60 acciones de producto implementadas en Budget
+- Centro de salud financiera
+- Actividad filtrable y exportable
+- Eliminación de movimientos desde UI
+- Integración unificada con TransactionService
+- Migración de movimientos legacy
+- KPI de flujo neto, gasto diario, uso y riesgo
+- Rail de comandos y atajos de teclado
+- Alertas operativas
+- Comando de recalculo
+- Navegación ampliada a Actividad
+- Command Center con cola de acciones

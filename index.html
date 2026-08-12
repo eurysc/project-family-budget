@@ -1,161 +1,354 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Family Budget • S06</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Project Family Budget • S06</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
 <body>
-<!-- H55X_S07_APPLIED -->
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand-mark">PF</span>
-      <div>
-        <h1>Project Family Budget</h1>
-        <small>Operación financiera diaria</small>
-      </div>
-    </div>
-
-    <nav class="menu" aria-label="Navegación principal">
-      <button class="nav-item active" data-view="dashboard">Centro Ejecutivo</button>
-      <button class="nav-item" data-view="boxes">Cajitas</button>
-      <button class="nav-item" data-view="cards">TDC</button>
-      <button class="nav-item" data-view="budget">Presupuesto</button>
-      <button class="nav-item" data-view="wealth">Patrimonio</button>
-      <button class="nav-item" data-view="settings">Configuración</button>
-    </nav>
-
-    <div class="quick-actions">
-      <input id="quickAmount" type="number" min="0" step="1000" placeholder="Monto">
-      <select id="quickType" aria-label="Tipo">
-        <option value="Gasto">Gasto</option>
-        <option value="Ingreso">Ingreso</option>
-        <option value="Transferencia">Transferencia</option>
-        <option value="Ahorro">Ahorro</option>
-      </select>
-      <button id="quickRegister" class="btn btn-primary">Registrar</button>
-      <button id="openRegister" class="btn btn-ghost">Nuevo</button>
-    </div>
-  </header>
-
-  <main class="app-shell">
-    <section id="view-dashboard" class="view active">
-      <div class="hero executive-hero">
-        <div>
-          <span class="eyebrow">H55X • S06 • Batch Impacto</span>
-          <h2>Centro Ejecutivo Financiero</h2>
-          <p>Liquidez, ejecución y prioridades de dinero en una sola vista.</p>
-        </div>
-        <div class="hero-actions">
-          <button id="heroRegister" class="btn btn-primary">Registrar movimiento</button>
-          <span id="syncState" class="status-dot">Datos locales</span>
-        </div>
-      </div>
-
-      <div class="kpi-grid" id="kpiGrid">
-        <article class="metric-card accent-blue"><span>Liquidez</span><strong id="kpiLiquidity">COP 3.450.000</strong><small>saldo operativo</small></article>
-        <article class="metric-card accent-green"><span>Ahorro del mes</span><strong id="kpiSavings">COP 820.000</strong><small>protección + metas</small></article>
-        <article class="metric-card accent-amber"><span>Próximo pago</span><strong id="kpiNextPay">Nu • 3 días</strong><small>calendario priorizado</small></article>
-        <article class="metric-card accent-violet"><span>Patrimonio</span><strong id="kpiWealth">COP 18.2M</strong><small>proyección</small></article>
-      </div>
-
-      <div class="secondary-grid">
-        <article class="panel command-panel">
-          <div class="panel-head">
-            <div><span class="eyebrow">Hoy</span><h3>Centro de Mando</h3></div>
-            <span id="taskProgressLabel" class="pill">0%</span>
-          </div>
-          <div class="command-summary">
-            <div><span>Disponible hoy</span><strong id="availableToday">COP 185.000</strong></div>
-            <div><span>Próximo pago</span><strong>Nu Mastercard</strong></div>
-            <div><span>Autonomía</span><strong id="autonomyValue">17 días</strong></div>
-          </div>
-          <div class="task-list">
-            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="arriendo"><span>Separar arriendo</span><strong>COP 1.000.000</strong></label>
-            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="internet"><span>Pagar Internet ETB</span><strong>COP 120.000</strong></label>
-            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="nu"><span>Revisar Nu Mastercard</span><strong>mínimo</strong></label>
-            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="i5"><span>Aporte Fondo I5</span><strong>COP 1.500.000</strong></label>
-          </div>
-          <div class="progress-wrap"><div class="progress"><div id="taskProgressBar" style="width:0%"></div></div><small id="taskProgressCount">0 de 4 tareas completadas</small></div>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head"><div><span class="eyebrow">Distribución</span><h3>Presupuesto</h3></div><span class="pill">Mes actual</span></div>
-          <div class="chart-box"><canvas id="budgetChart"></canvas></div>
-        </article>
-      </div>
-
-      <div class="secondary-grid">
-        <article class="panel">
-          <div class="panel-head"><div><span class="eyebrow">24 meses</span><h3>Proyección patrimonial</h3></div><span class="pill">Estimado vs cumplimiento</span></div>
-          <div class="chart-box tall"><canvas id="projectionChart"></canvas></div>
-        </article>
-
-        <article class="panel quick-register-panel">
-          <div class="panel-head"><div><span class="eyebrow">Entrada rápida</span><h3>Registrar ahora</h3></div></div>
-          <div class="mini-form">
-            <label>Monto<input id="inlineAmount" type="number" min="0" placeholder="0"></label>
-            <label>Comercio<input id="inlineMerchant" type="text" placeholder="Uber, D1..."></label>
-            <label>Categoría<select id="inlineCategory"><option>Alimentación</option><option>Transporte</option><option>Hogar</option><option>Servicios</option><option>Educación</option><option>Familia</option><option>Ocio</option><option>Otros</option></select></label>
-            <button id="inlineSubmit" class="btn btn-primary">Guardar movimiento</button>
-          </div>
-          <p id="registerFeedback" class="feedback" aria-live="polite"></p>
-        </article>
-      </div>
-    </section>
-
-    <section id="view-boxes" class="view">
-      <div class="section-title"><div><span class="eyebrow">Metas operativas</span><h2>Cajitas</h2><p>Protege dinero con objetivos y progreso visible.</p></div><button id="newBox" class="btn btn-primary">+ Nueva cajita</button></div>
-      <div id="boxesGrid" class="boxes-grid"></div>
-    </section>
-
-    <section id="view-cards" class="view">
-      <div class="section-title"><div><span class="eyebrow">Crédito</span><h2>Seguimiento TDC</h2><p>Utilización, fechas críticas y capacidad disponible.</p></div><span class="pill">S06</span></div>
-      <div class="kpi-grid three"><article class="metric-card"><span>Cupo</span><strong>COP 4.000.000</strong><small>límite total</small></article><article class="metric-card"><span>Disponible</span><strong>COP 3.480.000</strong><small>87% libre</small></article><article class="metric-card accent-amber"><span>Utilización</span><strong>13%</strong><small>saludable</small></article></div>
-      <article class="panel"><div class="panel-head"><h3>Calendario TDC</h3><span class="pill">Próximas fechas</span></div><div class="timeline-cards"><div><b>Corte</b><strong>16</strong><small>de mes</small></div><div><b>Revisión</b><strong>17</strong><small>de mes</small></div><div><b>Mínimo</b><strong>20</strong><small>de mes</small></div><div><b>Pago</b><strong>25</strong><small>de mes</small></div></div></article>
-    </section>
-
-    <section id="view-budget" class="view">
-      <div class="section-title"><div><span class="eyebrow">Control</span><h2>Presupuesto</h2><p>Ve lo gastado, disponible y porcentaje utilizado.</p></div><span class="pill">Vista ejecutiva</span></div>
-      <article class="panel table-panel"><table class="table"><thead><tr><th>Categoría</th><th>Presupuesto</th><th>Gastado</th><th>Disponible</th><th>Uso</th></tr></thead><tbody><tr><td>Alimentación</td><td>COP 1.200.000</td><td id="budgetSpent">COP 680.000</td><td>COP 520.000</td><td><div class="bar"><span style="width:57%"></span></div><b>57%</b></td></tr><tr><td>Transporte</td><td>COP 600.000</td><td>COP 210.000</td><td>COP 390.000</td><td><div class="bar"><span style="width:35%"></span></div><b>35%</b></td></tr><tr><td>Hogar</td><td>COP 1.600.000</td><td>COP 920.000</td><td>COP 680.000</td><td><div class="bar"><span style="width:57%"></span></div><b>57%</b></td></tr></tbody></table></article>
-    </section>
-
-    <section id="view-wealth" class="view">
-      <div class="section-title"><div><span class="eyebrow">Patrimonio</span><h2>Patrimonio & escenarios</h2><p>Conecta ahorro, liquidez y crecimiento proyectado.</p></div></div>
-      <div class="scenario-grid"><article class="scenario-card"><span>Base</span><strong>COP 18.2M</strong><small>ritmo actual</small></article><article class="scenario-card"><span>Acelerado</span><strong>COP 22.8M</strong><small>+20% ahorro</small></article><article class="scenario-card"><span>Protegido</span><strong>COP 20.4M</strong><small>prioriza colchón</small></article></div>
-      <article class="panel"><div class="panel-head"><h3>Últimos movimientos</h3><span class="pill">10 recientes</span></div><table class="table"><thead><tr><th>Fecha</th><th>Comercio</th><th>Método</th><th>Categoría</th><th>Monto</th></tr></thead><tbody id="movementsBody"></tbody></table></article>
-    </section>
-
-    <section id="view-settings" class="view">
-      <div class="section-title"><div><span class="eyebrow">Sistema</span><h2>Configuración</h2><p>Preferencias de visualización y datos locales.</p></div></div>
-      <article class="panel settings-grid"><div><h3>Modo compacto</h3><p>Reduce la densidad de los paneles.</p><button id="densityToggle" class="btn btn-ghost">Alternar densidad</button></div><div><h3>Datos de prueba</h3><p>Limpia movimientos locales para una revisión limpia.</p><button id="resetLocal" class="btn btn-danger">Limpiar movimientos</button></div><div><h3>Estado</h3><p id="settingsState">Operación local activa.</p></div></article>
-    </section>
-  </main>
-
-  <div id="registerModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-card">
-      <div class="modal-head"><div><span class="eyebrow">Captura</span><h3 id="modalTitle">Registrar movimiento</h3></div><button id="closeRegister" class="icon-btn" aria-label="Cerrar">×</button></div>
-      <div class="modal-grid">
-        <label>Monto<input id="modalAmount" type="number" min="0" placeholder="0"></label>
-        <label>Tipo<select id="modalType"><option>Gasto</option><option>Ingreso</option><option>Transferencia</option><option>Ahorro</option></select></label>
-        <label>Cuenta<select id="modalAccount"><option>BBVA Cuenta Principal</option><option>BBVA Ahorros</option><option>Nu Cuenta Principal</option><option>TDC Nu</option><option>Efectivo</option></select></label>
-        <label>Comercio<input id="modalMerchant" type="text" placeholder="Comercio"></label>
-        <label>Categoría<select id="modalCategory"><option>Alimentación</option><option>Transporte</option><option>Hogar</option><option>Servicios</option><option>Educación</option><option>Familia</option><option>Ocio</option><option>Otros</option></select></label>
-        <label class="span-2">Notas<input id="modalNotes" type="text" placeholder="Opcional"></label>
-      </div>
-      <div class="modal-actions"><button id="cancelRegister" class="btn btn-ghost">Cancelar</button><button id="saveRegister" class="btn btn-primary">Guardar</button></div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<!-- H55X_S07_APPLIED -->
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <span class="brand-mark">PF</span>
+
+      <div>
+
+        <h1>Project Family Budget</h1>
+
+        <small>Operación financiera diaria</small>
+
+      </div>
+
+    </div>
+
+
+
+    <nav class="menu" aria-label="Navegación principal">
+
+      <button class="nav-item active" data-view="dashboard">Centro Ejecutivo</button>
+
+      <button class="nav-item" data-view="boxes">Cajitas</button>
+
+      <button class="nav-item" data-view="cards">TDC</button>
+
+      <button class="nav-item" data-view="budget">Presupuesto</button>
+
+      <button class="nav-item" data-view="wealth">Patrimonio</button>
+
+      <button class="nav-item" data-view="activity">Actividad</button>
+      <button class="nav-item" data-view="settings">Configuración</button>
+
+    </nav>
+
+
+
+    <div class="quick-actions">
+
+      <input id="quickAmount" type="number" min="0" step="1000" placeholder="Monto">
+
+      <select id="quickType" aria-label="Tipo">
+
+        <option value="Gasto">Gasto</option>
+
+        <option value="Ingreso">Ingreso</option>
+
+        <option value="Transferencia">Transferencia</option>
+
+        <option value="Ahorro">Ahorro</option>
+
+      </select>
+
+      <button id="quickRegister" class="btn btn-primary">Registrar</button>
+
+      <button id="openRegister" class="btn btn-ghost">Nuevo</button>
+
+    </div>
+
+  </header>
+
+
+
+  <main class="app-shell">
+
+    <section id="view-dashboard" class="view active">
+
+      <div id="s08CommandRail" class="s08-command-rail" aria-label="Acciones rápidas del sistema">
+        <button class="rail-chip active" data-action="dashboard">Resumen</button>
+        <button class="rail-chip" data-action="register">Registrar</button>
+        <button class="rail-chip" data-action="boxes">Cajitas</button>
+        <button class="rail-chip" data-action="cards">TDC</button>
+        <button class="rail-chip" data-action="budget">Presupuesto</button>
+        <button class="rail-chip" data-action="wealth">Patrimonio</button>
+      </div>
+
+      <div class="hero executive-hero">
+
+        <div>
+
+          <span class="eyebrow">H55X • S06 • Batch Impacto</span>
+
+          <h2>Centro Ejecutivo Financiero</h2>
+
+          <p>Liquidez, ejecución y prioridades de dinero en una sola vista.</p>
+
+        </div>
+
+        <div class="hero-actions">
+
+          <button id="heroRegister" class="btn btn-primary">Registrar movimiento</button>
+
+          <span id="syncState" class="status-dot">Datos locales</span>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="kpi-grid" id="kpiGrid">
+
+        <article class="metric-card accent-blue"><span>Liquidez</span><strong id="kpiLiquidity">COP 3.450.000</strong><small>saldo operativo</small></article>
+
+        <article class="metric-card accent-green"><span>Ahorro del mes</span><strong id="kpiSavings">COP 820.000</strong><small>protección + metas</small></article>
+
+        <article class="metric-card accent-amber"><span>Próximo pago</span><strong id="kpiNextPay">Nu • 3 días</strong><small>calendario priorizado</small></article>
+
+        <article class="metric-card accent-violet"><span>Patrimonio</span><strong id="kpiWealth">COP 18.2M</strong><small>proyección</small></article>
+
+      </div>
+
+
+
+      <section class="s08-health-grid" aria-label="Salud financiera">
+        <article class="s08-health-card blue"><span>Flujo neto</span><strong id="s08NetFlow">COP 0</strong><small>ingresos − gastos</small></article>
+        <article class="s08-health-card amber"><span>Gasto hoy</span><strong id="s08TodaySpend">COP 0</strong><small>vs. disponible diario</small></article>
+        <article class="s08-health-card violet"><span>Uso presupuesto</span><strong id="s08BudgetUse">0%</strong><small>referencia operativa</small></article>
+        <article class="s08-health-card green"><span>Riesgo</span><strong id="s08Risk">VERDE</strong><small id="s08RiskText">sin señales críticas</small></article>
+      </section>
+
+      <div class="secondary-grid">
+
+        <article class="panel command-panel">
+
+          <div class="panel-head">
+
+            <div><span class="eyebrow">Hoy</span><h3>Centro de Mando</h3></div>
+
+            <span id="taskProgressLabel" class="pill">0%</span>
+
+          </div>
+
+          <div class="command-summary">
+
+            <div><span>Disponible hoy</span><strong id="availableToday">COP 185.000</strong></div>
+
+            <div><span>Próximo pago</span><strong>Nu Mastercard</strong></div>
+
+            <div><span>Autonomía</span><strong id="autonomyValue">17 días</strong></div>
+
+          </div>
+
+          <div class="task-list">
+
+            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="arriendo"><span>Separar arriendo</span><strong>COP 1.000.000</strong></label>
+
+            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="internet"><span>Pagar Internet ETB</span><strong>COP 120.000</strong></label>
+
+            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="nu"><span>Revisar Nu Mastercard</span><strong>mínimo</strong></label>
+
+            <label class="task-item"><input type="checkbox" class="task-checkbox" data-task="i5"><span>Aporte Fondo I5</span><strong>COP 1.500.000</strong></label>
+
+          </div>
+
+          <div class="progress-wrap"><div class="progress"><div id="taskProgressBar" style="width:0%"></div></div><small id="taskProgressCount">0 de 4 tareas completadas</small></div>
+
+        </article>
+
+
+
+        <article class="panel">
+
+          <div class="panel-head"><div><span class="eyebrow">Distribución</span><h3>Presupuesto</h3></div><span class="pill">Mes actual</span></div>
+
+          <div class="chart-box"><canvas id="budgetChart"></canvas></div>
+
+        </article>
+
+      </div>
+
+
+
+      <div class="secondary-grid">
+
+        <article class="panel">
+
+          <div class="panel-head"><div><span class="eyebrow">24 meses</span><h3>Proyección patrimonial</h3></div><span class="pill">Estimado vs cumplimiento</span></div>
+
+          <div class="chart-box tall"><canvas id="projectionChart"></canvas></div>
+
+        </article>
+
+
+
+        <article class="panel quick-register-panel">
+
+          <div class="panel-head"><div><span class="eyebrow">Entrada rápida</span><h3>Registrar ahora</h3></div></div>
+
+          <div class="mini-form">
+
+            <label>Monto<input id="inlineAmount" type="number" min="0" placeholder="0"></label>
+
+            <label>Comercio<input id="inlineMerchant" type="text" placeholder="Uber, D1..."></label>
+
+            <label>Categoría<select id="inlineCategory"><option>Alimentación</option><option>Transporte</option><option>Hogar</option><option>Servicios</option><option>Educación</option><option>Familia</option><option>Ocio</option><option>Otros</option></select></label>
+
+            <button id="inlineSubmit" class="btn btn-primary">Guardar movimiento</button>
+
+          </div>
+
+          <p id="registerFeedback" class="feedback" aria-live="polite"></p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+
+    <section id="view-boxes" class="view">
+
+      <div class="section-title"><div><span class="eyebrow">Metas operativas</span><h2>Cajitas</h2><p>Protege dinero con objetivos y progreso visible.</p></div><button id="newBox" class="btn btn-primary">+ Nueva cajita</button></div>
+
+      <div id="boxesGrid" class="boxes-grid"></div>
+
+    </section>
+
+
+
+    <section id="view-cards" class="view">
+
+      <div class="section-title"><div><span class="eyebrow">Crédito</span><h2>Seguimiento TDC</h2><p>Utilización, fechas críticas y capacidad disponible.</p></div><span class="pill">S06</span></div>
+
+      <div class="kpi-grid three"><article class="metric-card"><span>Cupo</span><strong>COP 4.000.000</strong><small>límite total</small></article><article class="metric-card"><span>Disponible</span><strong>COP 3.480.000</strong><small>87% libre</small></article><article class="metric-card accent-amber"><span>Utilización</span><strong>13%</strong><small>saludable</small></article></div>
+
+      <article class="panel"><div class="panel-head"><h3>Calendario TDC</h3><span class="pill">Próximas fechas</span></div><div class="timeline-cards"><div><b>Corte</b><strong>16</strong><small>de mes</small></div><div><b>Revisión</b><strong>17</strong><small>de mes</small></div><div><b>Mínimo</b><strong>20</strong><small>de mes</small></div><div><b>Pago</b><strong>25</strong><small>de mes</small></div></div></article>
+
+    </section>
+
+
+
+    <section id="view-budget" class="view">
+
+      <div class="section-title"><div><span class="eyebrow">Control</span><h2>Presupuesto</h2><p>Ve lo gastado, disponible y porcentaje utilizado.</p></div><span class="pill">Vista ejecutiva</span></div>
+
+      <article class="panel table-panel"><table class="table"><thead><tr><th>Categoría</th><th>Presupuesto</th><th>Gastado</th><th>Disponible</th><th>Uso</th></tr></thead><tbody><tr><td>Alimentación</td><td>COP 1.200.000</td><td id="budgetSpent">COP 680.000</td><td>COP 520.000</td><td><div class="bar"><span style="width:57%"></span></div><b>57%</b></td></tr><tr><td>Transporte</td><td>COP 600.000</td><td>COP 210.000</td><td>COP 390.000</td><td><div class="bar"><span style="width:35%"></span></div><b>35%</b></td></tr><tr><td>Hogar</td><td>COP 1.600.000</td><td>COP 920.000</td><td>COP 680.000</td><td><div class="bar"><span style="width:57%"></span></div><b>57%</b></td></tr></tbody></table></article>
+
+    </section>
+
+
+
+    <section id="view-wealth" class="view">
+
+      <div class="section-title"><div><span class="eyebrow">Patrimonio</span><h2>Patrimonio & escenarios</h2><p>Conecta ahorro, liquidez y crecimiento proyectado.</p></div></div>
+
+      <div class="scenario-grid"><article class="scenario-card"><span>Base</span><strong>COP 18.2M</strong><small>ritmo actual</small></article><article class="scenario-card"><span>Acelerado</span><strong>COP 22.8M</strong><small>+20% ahorro</small></article><article class="scenario-card"><span>Protegido</span><strong>COP 20.4M</strong><small>prioriza colchón</small></article></div>
+
+      <article class="panel"><div class="panel-head"><h3>Últimos movimientos</h3><span class="pill">10 recientes</span></div><table class="table"><thead><tr><th>Fecha</th><th>Comercio</th><th>Método</th><th>Categoría</th><th>Monto</th></tr></thead><tbody id="movementsBody"></tbody></table></article>
+
+    </section>
+
+
+
+    <section id="view-activity" class="view">
+      <div class="section-title">
+        <div><span class="eyebrow">Operación</span><h2>Actividad & señales</h2><p>Seguimiento de movimientos, gasto y salud del sistema.</p></div>
+        <div class="activity-actions">
+          <input id="s08ActivitySearch" class="s08-control" type="search" placeholder="Filtrar comercio o categoría">
+          <select id="s08ActivityType" class="s08-control"><option value="all">Todos</option><option value="Gasto">Gastos</option><option value="Ingreso">Ingresos</option><option value="Ahorro">Ahorros</option></select>
+          <button id="s08Export" class="btn btn-ghost">Exportar CSV</button>
+        </div>
+      </div>
+      <article class="panel">
+        <div class="panel-head"><div><span class="eyebrow">Últimos 12</span><h3>Actividad reciente</h3></div><span id="s08ActivityCount" class="pill">0 movimientos</span></div>
+        <div id="s08ActivityList" class="s08-activity-list"></div>
+      </article>
+      <article class="panel s08-insight-panel">
+        <div class="panel-head"><div><span class="eyebrow">Alertas</span><h3>Señales operativas</h3></div><button id="s08Recalculate" class="btn btn-ghost">Recalcular</button></div>
+        <div id="s08Alerts" class="s08-alert-list"></div>
+      </article>
+    </section>
+
+    <section id="view-settings" class="view">
+
+      <div class="section-title"><div><span class="eyebrow">Sistema</span><h2>Configuración</h2><p>Preferencias de visualización y datos locales.</p></div></div>
+
+      <article class="panel settings-grid"><div><h3>Modo compacto</h3><p>Reduce la densidad de los paneles.</p><button id="densityToggle" class="btn btn-ghost">Alternar densidad</button></div><div><h3>Datos de prueba</h3><p>Limpia movimientos locales para una revisión limpia.</p><button id="resetLocal" class="btn btn-danger">Limpiar movimientos</button></div><div><h3>Estado</h3><p id="settingsState">Operación local activa.</p></div></article>
+
+    </section>
+
+  </main>
+
+
+
+  <div id="registerModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-card">
+
+      <div class="modal-head"><div><span class="eyebrow">Captura</span><h3 id="modalTitle">Registrar movimiento</h3></div><button id="closeRegister" class="icon-btn" aria-label="Cerrar">×</button></div>
+
+      <div class="modal-grid">
+
+        <label>Monto<input id="modalAmount" type="number" min="0" placeholder="0"></label>
+
+        <label>Tipo<select id="modalType"><option>Gasto</option><option>Ingreso</option><option>Transferencia</option><option>Ahorro</option></select></label>
+
+        <label>Cuenta<select id="modalAccount"><option>BBVA Cuenta Principal</option><option>BBVA Ahorros</option><option>Nu Cuenta Principal</option><option>TDC Nu</option><option>Efectivo</option></select></label>
+
+        <label>Comercio<input id="modalMerchant" type="text" placeholder="Comercio"></label>
+
+        <label>Categoría<select id="modalCategory"><option>Alimentación</option><option>Transporte</option><option>Hogar</option><option>Servicios</option><option>Educación</option><option>Familia</option><option>Ocio</option><option>Otros</option></select></label>
+
+        <label class="span-2">Notas<input id="modalNotes" type="text" placeholder="Opcional"></label>
+
+      </div>
+
+      <div class="modal-actions"><button id="cancelRegister" class="btn btn-ghost">Cancelar</button><button id="saveRegister" class="btn btn-primary">Guardar</button></div>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
   <div id="s07InsightRail" class="s07-insight-rail" aria-live="polite"></div>
 <script src="js/services/transactionService.js"></script>
 <script src="js/services/kpiEngine.js"></script>
 <script src="js/services/paymentCalendar.js"></script>
-<script src="js/app.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/charts.js"></script>
-</body>
-</html>
+<script src="js/services/budgetInsightEngine.js"></script>
+  <script src="js/app.js"></script>
+
+  <script src="js/dashboard.js"></script>
+
+  <script src="js/charts.js"></script>
+
+</body>
+
+</html>
+
