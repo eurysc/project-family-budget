@@ -96,3 +96,8 @@
 - Gráficos con tres escenarios
 - Modo compacto
 - Limpieza de banners y duplicaciones
+
+## S07 • Operación Viva
+- Batch de 60 acciones: operación, persistencia, alertas, filtros y salud financiera.
+- Integración del servicio de transacciones, KPIs y calendario de pagos.
+- Feed operativo, señales de riesgo, atajos y estados de captura.
