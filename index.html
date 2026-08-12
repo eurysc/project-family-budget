@@ -48,6 +48,9 @@
       <button class="nav-item" data-view="wealth">Patrimonio</button>
 
       <button class="nav-item" data-view="activity">Actividad</button>
+<!-- H55X_S10_NAV -->
+      <button class="nav-item" data-view="cashflow">Flujo</button>
+      <button class="nav-item" data-view="insights">Insights</button>
       <button class="nav-item" data-view="settings">Configuración</button>
 
     </nav>
@@ -297,6 +300,26 @@
 
       <article class="panel settings-grid"><div><h3>Modo compacto</h3><p>Reduce la densidad de los paneles.</p><button id="densityToggle" class="btn btn-ghost">Alternar densidad</button></div><div><h3>Datos de prueba</h3><p>Limpia movimientos locales para una revisión limpia.</p><button id="resetLocal" class="btn btn-danger">Limpiar movimientos</button></div><div><h3>Estado</h3><p id="settingsState">Operación local activa.</p></div></article>
 
+    </section>
+
+  
+<!-- H55X_S10_VIEWS -->
+    <section id="view-cashflow" class="view">
+      <div class="section-title"><div><span class="eyebrow">Cashflow</span><h2>Flujo de caja</h2><p>Entrada, salida y decisiones de liquidez.</p></div><span id="s10CashflowHealth" class="pill">Calculando</span></div>
+      <div class="kpi-grid three">
+        <article class="metric-card accent-green"><span>Ingresos 30 días</span><strong id="s10Income30">COP 0</strong><small>entradas registradas</small></article>
+        <article class="metric-card accent-blue"><span>Gastos 30 días</span><strong id="s10Expense30">COP 0</strong><small>salidas registradas</small></article>
+        <article class="metric-card accent-violet"><span>Flujo neto</span><strong id="s10Net30">COP 0</strong><small>ingresos - gastos</small></article>
+      </div>
+      <div class="secondary-grid">
+        <article class="panel"><div class="panel-head"><div><span class="eyebrow">Distribución</span><h3>Gasto por categoría</h3></div><span id="s10CategoryCount" class="pill">0 categorías</span></div><div id="s10CategoryBars" class="s10-bars"></div></article>
+        <article class="panel"><div class="panel-head"><div><span class="eyebrow">Presión</span><h3>Próximos compromisos</h3></div></div><div id="s10Commitments" class="s10-list"></div></article>
+      </div>
+    </section>
+    <section id="view-insights" class="view">
+      <div class="section-title"><div><span class="eyebrow">Intelligence</span><h2>Insights</h2><p>Lecturas rápidas para decidir qué hacer con el dinero.</p></div><button id="s10RefreshInsights" class="btn btn-ghost">Actualizar lectura</button></div>
+      <div id="s10InsightGrid" class="s10-insights"></div>
+      <article class="panel"><div class="panel-head"><div><span class="eyebrow">Command</span><h3>Acciones sugeridas</h3></div><span id="s10ActionCount" class="pill">0</span></div><div id="s10ActionList" class="s10-actions"></div></article>
     </section>
 
   </main>

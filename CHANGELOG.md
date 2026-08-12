@@ -131,3 +131,13 @@
 - Comando de recalculo
 - Navegación ampliada a Actividad
 - Command Center con cola de acciones
+
+
+## S10 • Cashflow & Insights
+- Flujo de caja 30 días
+- Gasto por categoría
+- Compromisos próximos
+- Insights ejecutivos
+- Acciones sugeridas
+- Navegación ampliada
+- Actualización en vivo tras movimientos
